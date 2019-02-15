@@ -1,0 +1,23 @@
+{
+  "name": "groupoid",
+  "version": "1.0.0",
+  "description": "Groupoid Infinity is doing research in type theory, term encodings, program extraction and effective compilation. Infinity stack consists of two tools:",
+  "main": "",
+  "scripts": {
+    "start": "node-sass ./styles -o ./ && pug ./ ",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/5ht/5ht.co"
+  },
+  "author": "Arseniy Bushyn",
+  "license": "ISC",
+  "preinstall": "npm i -g node-sass && npm i -g pug-cli",
+  "dependencies": {
+    "node-sass": "^4.11.0",
+    "npm": "^5.8.0",
+    "pug": "^2.0.0-rc.4",
+    "sass": "^1.2.1"
+  }
+}

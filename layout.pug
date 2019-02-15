@@ -1,0 +1,36 @@
+mixin header(logo, title, subtitle)
+    header.header
+        .header__titles
+            h1.header__title!= title
+            h4.header__subtitle!= subtitle
+
+doctype html
+html
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='x-ua-compatible' content='ie=edge')
+        meta(name='viewport'        content='width=device-width, initial-scale=1')
+        meta(name='author'          content='Maxim Sokhatsky')
+        meta(name='twitter:site'    content='@5HT')
+        meta(name='twitter:creator' content='@5HT')
+        meta(property='og:type'        content='website')
+        meta(property='fb:app_id'      content='118554188236439')
+        meta(property='og:url'         content='https://groupoid.space')
+        meta(property='og:title'       content='GROUPOЇD')
+        meta(property='og:description' content='Homotopy Theory')
+        link(rel='stylesheet' href='https://groupoid.space/main.css?v=12')
+        block title
+            title default
+
+    body.content
+        block vars
+        block content
+        footer.footer
+            a(href='//tonpa.guru/')
+                img.footer__logo(src='https://longchenpa.guru/seal.png',width=50)
+            span.footer__copy 2016&mdash;2019 &copy; <a href="//groupoid.space/" style="color:Lavender;">Groupoid Infinity</a>
+        if hopf
+            script(src='bundle.js')
+        else
+            script(src='https://groupoid.space/bundle.js')
+        script(src='https://groupoid.space/highlight.js?v=11')
