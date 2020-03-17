@@ -1,7 +1,7 @@
 {
   "name": "groupoid",
   "version": "1.0.0",
-  "description": "Groupoid Infinity is doing research in type theory, term encodings, program extraction and effective compilation. Infinity stack consists of two tools:",
+  "description": "Groupoid Infinity is doing research in type theory, term encodings, program extraction and effective compilation.",
   "main": "",
   "scripts": {
     "start": "node-sass ./styles -o ./ && pug ./ ",
