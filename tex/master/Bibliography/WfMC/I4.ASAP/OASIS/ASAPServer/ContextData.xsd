@@ -1,0 +1,14 @@
+<xsd:schema targetNamespace="http://codingcoach/schema.xsd"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:cc="http://codingcoach/schema.xsd"
+		elementFormDefault="qualified" >
+       
+  <xsd:complexType name="ContextDataType">
+    <xsd:sequence>
+      <xsd:element name="X" type="xsd:int"/>
+      <xsd:element name="Y" type="xsd:int"/>
+      <xsd:element name="Seconds" type="xsd:int"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+</xsd:schema>

@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.wfmc.org/2002/XPDL1.0" xmlns:xpdl="http://www.wfmc.org/2002/XPDL1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+   <xs:element name="Activities">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:Activity" minOccurs="0" maxOccurs="unbounded"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="Activity">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:Description" minOccurs="0"/>
+            <xs:element ref="xpdl:Limit" minOccurs="0"/>
+            <xs:choice>
+               <xs:element ref="xpdl:Route"/>
+               <xs:element ref="xpdl:Implementation"/>
+               <xs:element ref="xpdl:BlockActivity"/>
+            </xs:choice>
+            <xs:element ref="xpdl:Performer" minOccurs="0"/>
+            <xs:element ref="xpdl:StartMode" minOccurs="0"/>
+            <xs:element ref="xpdl:FinishMode" minOccurs="0"/>
+            <xs:element ref="xpdl:Priority" minOccurs="0"/>
+            <xs:element ref="xpdl:Deadline" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element ref="xpdl:SimulationInformation" minOccurs="0"/>
+            <xs:element ref="xpdl:Icon" minOccurs="0"/>
+            <xs:element ref="xpdl:Documentation" minOccurs="0"/>
+            <xs:element ref="xpdl:TransitionRestrictions" minOccurs="0"/>
+            <xs:element ref="xpdl:ExtendedAttributes" minOccurs="0"/>
+         </xs:sequence>
+         <xs:attribute name="Id" type="xs:NMTOKEN" use="required"/>
+         <xs:attribute name="Name" type="xs:string"/>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="ActivitySet">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:Activities" minOccurs="0"/>
+            <xs:element ref="xpdl:Transitions" minOccurs="0"/>
+         </xs:sequence>
+         <xs:attribute name="Id" type="xs:NMTOKEN" use="required"/>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="ActivitySets">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:ActivitySet" minOccurs="0" maxOccurs="unbounded"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="ActualParameter" type="xs:string"/>
+   <xs:element name="ActualParameters">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:ActualParameter" minOccurs="0" maxOccurs="unbounded"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="Application">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:Description" minOccurs="0"/>
+            <xs:choice>
+               <xs:element ref="xpdl:FormalParameters"/>
+               <xs:element ref="xpdl:ExternalReference" minOccurs="0"/>
+            </xs:choice>
+            <xs:element ref="xpdl:ExtendedAttributes" minOccurs="0"/>
+         </xs:sequence>
+         <xs:attribute name="Id" type="xs:NMTOKEN" use="required"/>
+         <xs:attribute name="Name" type="xs:string"/>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="Applications">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:Application" minOccurs="0" maxOccurs="unbounded"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="ArrayType">
+      <xs:complexType>
+         <xs:group ref="xpdl:DataTypes"/>
+         <xs:attribute name="LowerIndex" type="xs:NMTOKEN" use="required"/>
+         <xs:attribute name="UpperIndex" type="xs:NMTOKEN" use="required"/>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="Author" type="xs:string"/>
+   <xs:element name="Automatic">
+      <xs:complexType/>
+   </xs:element>
+   <xs:element name="BasicType">
+      <xs:complexType>
+         <xs:attribute name="Type" use="required">
+            <xs:simpleType>
+               <xs:restriction base="xs:NMTOKEN">
+                  <xs:enumeration value="STRING"/>
+                  <xs:enumeration value="FLOAT"/>
+                  <xs:enumeration value="INTEGER"/>
+                  <xs:enumeration value="REFERENCE"/>
+                  <xs:enumeration value="DATETIME"/>
+                  <xs:enumeration value="BOOLEAN"/>
+                  <xs:enumeration value="PERFORMER"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:attribute>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="BlockActivity">
+      <xs:complexType>
+         <xs:attribute name="BlockId" type="xs:NMTOKEN" use="required"/>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="Codepage" type="xs:string"/>
+   <xs:element name="Condition">
+      <xs:complexType mixed="true">
+         <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element ref="xpdl:Xpression"/>
+         </xs:choice>
+         <xs:attribute name="Type">
+            <xs:simpleType>
+               <xs:restriction base="xs:NMTOKEN">
+                  <xs:enumeration value="CONDITION"/>
+                  <xs:enumeration value="OTHERWISE"/>
+                  <xs:enumeration value="EXCEPTION"/>
+                  <xs:enumeration value="DEFAULTEXCEPTION"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:attribute>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="ConformanceClass">
+      <xs:complexType>
+         <xs:attribute name="GraphConformance">
+            <xs:simpleType>
+               <xs:restriction base="xs:NMTOKEN">
+                  <xs:enumeration value="FULL_BLOCKED"/>
+                  <xs:enumeration value="LOOP_BLOCKED"/>
+                  <xs:enumeration value="NON_BLOCKED"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:attribute>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="Cost" type="xs:string"/>
+   <xs:element name="CostUnit" type="xs:string"/>
+   <xs:element name="Countrykey" type="xs:string"/>
+   <xs:element name="Created" type="xs:string"/>
+   <xs:element name="DataField">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:DataType"/>
+            <xs:element ref="xpdl:InitialValue" minOccurs="0"/>
+            <xs:element ref="xpdl:Length" minOccurs="0"/>
+            <xs:element ref="xpdl:Description" minOccurs="0"/>
+            <xs:element ref="xpdl:ExtendedAttributes" minOccurs="0"/>
+         </xs:sequence>
+         <xs:attribute name="Id" type="xs:NMTOKEN" use="required"/>
+         <xs:attribute name="Name" type="xs:string"/>
+         <xs:attribute name="IsArray" default="FALSE">
+            <xs:simpleType>
+               <xs:restriction base="xs:NMTOKEN">
+                  <xs:enumeration value="TRUE"/>
+                  <xs:enumeration value="FALSE"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:attribute>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="DataFields">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:DataField" minOccurs="0" maxOccurs="unbounded"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="DataType">
+      <xs:complexType>
+         <xs:group ref="xpdl:DataTypes"/>
+      </xs:complexType>
+   </xs:element>
+   <xs:group name="DataTypes">
+      <xs:choice>
+         <xs:element ref="xpdl:BasicType"/>
+         <xs:element ref="xpdl:DeclaredType"/>
+         <xs:element ref="xpdl:SchemaType"/>
+         <xs:element ref="xpdl:ExternalReference"/>
+         <xs:element ref="xpdl:RecordType"/>
+         <xs:element ref="xpdl:UnionType"/>
+         <xs:element ref="xpdl:EnumerationType"/>
+         <xs:element ref="xpdl:ArrayType"/>
+         <xs:element ref="xpdl:ListType"/>
+      </xs:choice>
+   </xs:group>
+   <xs:element name="Deadline">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="DeadlineCondition" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="ExceptionName" minOccurs="1" maxOccurs="1"/>
+         </xs:sequence>
+         <xs:attribute name="Execution">
+            <xs:simpleType>
+               <xs:restriction base="xs:NMTOKEN">
+                  <xs:enumeration value="ASYNCHR"/>
+                  <xs:enumeration value="SYNCHR"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:attribute>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="DeclaredType">
+      <xs:complexType>
+         <xs:attribute name="Id" type="xs:IDREF" use="required"/>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="Description" type="xs:string"/>
+   <xs:element name="Documentation" type="xs:string"/>
+   <xs:element name="Duration" type="xs:string"/>
+   <xs:element name="EnumerationType">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:EnumerationValue" maxOccurs="unbounded"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="EnumerationValue">
+      <xs:complexType>
+         <xs:attribute name="Name" type="xs:NMTOKEN" use="required"/>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="ExtendedAttribute">
+      <xs:complexType mixed="true">
+         <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+         </xs:choice>
+         <xs:attribute name="Name" type="xs:NMTOKEN" use="required"/>
+         <xs:attribute name="Value" type="xs:string"/>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="ExtendedAttributes">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:ExtendedAttribute" minOccurs="0" maxOccurs="unbounded"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="ExternalPackage">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:ExtendedAttributes" minOccurs="0"/>
+         </xs:sequence>
+         <xs:attribute name="href" type="xs:string"/>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="ExternalPackages">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:ExternalPackage" minOccurs="0" maxOccurs="unbounded"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="ExternalReference">
+      <xs:complexType>
+         <xs:attribute name="xref" type="xs:NMTOKEN" use="optional"/>
+         <xs:attribute name="location" type="xs:anyURI" use="required"/>
+         <xs:attribute name="namespace" type="xs:anyURI" use="optional"/>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="FinishMode">
+      <xs:complexType>
+         <xs:choice>
+            <xs:element ref="xpdl:Automatic"/>
+            <xs:element ref="xpdl:Manual"/>
+         </xs:choice>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="FormalParameter">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:DataType"/>
+            <xs:element ref="xpdl:Description" minOccurs="0"/>
+         </xs:sequence>
+         <xs:attribute name="Id" type="xs:NMTOKEN" use="required"/>
+         <xs:attribute name="Index" type="xs:NMTOKEN"/>
+         <xs:attribute name="Mode" default="IN">
+            <xs:simpleType>
+               <xs:restriction base="xs:NMTOKEN">
+                  <xs:enumeration value="IN"/>
+                  <xs:enumeration value="OUT"/>
+                  <xs:enumeration value="INOUT"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:attribute>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="FormalParameters">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:FormalParameter" minOccurs="0" maxOccurs="unbounded"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="Icon" type="xs:string"/>
+   <xs:element name="Implementation">
+      <xs:complexType>
+         <xs:choice>
+            <xs:element ref="xpdl:No"/>
+            <xs:element ref="xpdl:Tool" maxOccurs="unbounded"/>
+            <xs:element ref="xpdl:SubFlow"/>
+         </xs:choice>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="InitialValue" type="xs:string"/>
+   <xs:element name="Join">
+      <xs:complexType>
+         <xs:attribute name="Type">
+            <xs:simpleType>
+               <xs:restriction base="xs:NMTOKEN">
+                  <xs:enumeration value="AND"/>
+                  <xs:enumeration value="XOR"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:attribute>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="Length" type="xs:string"/>
+   <xs:element name="Limit" type="xs:string"/>
+   <xs:element name="ListType">
+      <xs:complexType>
+         <xs:group ref="xpdl:DataTypes"/>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="Manual">
+      <xs:complexType/>
+   </xs:element>
+   <xs:element name="Member">
+      <xs:complexType>
+         <xs:group ref="xpdl:DataTypes"/>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="No">
+      <xs:complexType/>
+   </xs:element>
+   <xs:element name="Package">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:PackageHeader"/>
+            <xs:element ref="xpdl:RedefinableHeader" minOccurs="0"/>
+            <xs:element ref="xpdl:ConformanceClass" minOccurs="0"/>
+            <xs:element ref="xpdl:Script" minOccurs="0"/>
+            <xs:element ref="xpdl:ExternalPackages" minOccurs="0"/>
+            <xs:element ref="xpdl:TypeDeclarations" minOccurs="0"/>
+            <xs:element ref="xpdl:Participants" minOccurs="0"/>
+            <xs:element ref="xpdl:Applications" minOccurs="0"/>
+            <xs:element ref="xpdl:DataFields" minOccurs="0"/>
+            <xs:element ref="xpdl:WorkflowProcesses" minOccurs="0"/>
+            <xs:element ref="xpdl:ExtendedAttributes" minOccurs="0"/>
+         </xs:sequence>
+         <xs:attribute name="Id" type="xs:NMTOKEN" use="required"/>
+         <xs:attribute name="Name" type="xs:string"/>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="PackageHeader">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:XPDLVersion"/>
+            <xs:element ref="xpdl:Vendor"/>
+            <xs:element ref="xpdl:Created"/>
+            <xs:element ref="xpdl:Description" minOccurs="0"/>
+            <xs:element ref="xpdl:Documentation" minOccurs="0"/>
+            <xs:element ref="xpdl:PriorityUnit" minOccurs="0"/>
+            <xs:element ref="xpdl:CostUnit" minOccurs="0"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="Participant">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:ParticipantType"/>
+            <xs:element ref="xpdl:Description" minOccurs="0"/>
+            <xs:element ref="xpdl:ExternalReference" minOccurs="0"/>
+            <xs:element ref="xpdl:ExtendedAttributes" minOccurs="0"/>
+         </xs:sequence>
+         <xs:attribute name="Id" type="xs:NMTOKEN" use="required"/>
+         <xs:attribute name="Name" type="xs:string"/>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="ParticipantType">
+      <xs:complexType>
+         <xs:attribute name="Type" use="required">
+            <xs:simpleType>
+               <xs:restriction base="xs:NMTOKEN">
+                  <xs:enumeration value="RESOURCE_SET"/>
+                  <xs:enumeration value="RESOURCE"/>
+                  <xs:enumeration value="ROLE"/>
+                  <xs:enumeration value="ORGANIZATIONAL_UNIT"/>
+                  <xs:enumeration value="HUMAN"/>
+                  <xs:enumeration value="SYSTEM"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:attribute>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="Participants">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:Participant" minOccurs="0" maxOccurs="unbounded"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="Performer" type="xs:string"/>
+   <xs:element name="Priority" type="xs:string"/>
+   <xs:element name="PriorityUnit" type="xs:string"/>
+   <xs:element name="ProcessHeader">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:Created" minOccurs="0"/>
+            <xs:element ref="xpdl:Description" minOccurs="0"/>
+            <xs:element ref="xpdl:Priority" minOccurs="0"/>
+            <xs:element ref="xpdl:Limit" minOccurs="0"/>
+            <xs:element ref="xpdl:ValidFrom" minOccurs="0"/>
+            <xs:element ref="xpdl:ValidTo" minOccurs="0"/>
+            <xs:element ref="xpdl:TimeEstimation" minOccurs="0"/>
+         </xs:sequence>
+         <xs:attribute name="DurationUnit">
+            <xs:simpleType>
+               <xs:restriction base="xs:NMTOKEN">
+                  <xs:enumeration value="Y"/>
+                  <xs:enumeration value="M"/>
+                  <xs:enumeration value="D"/>
+                  <xs:enumeration value="h"/>
+                  <xs:enumeration value="m"/>
+                  <xs:enumeration value="s"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:attribute>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="RecordType">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:Member" maxOccurs="unbounded"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="RedefinableHeader">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:Author" minOccurs="0"/>
+            <xs:element ref="xpdl:Version" minOccurs="0"/>
+            <xs:element ref="xpdl:Codepage" minOccurs="0"/>
+            <xs:element ref="xpdl:Countrykey" minOccurs="0"/>
+            <xs:element ref="xpdl:Responsibles" minOccurs="0"/>
+         </xs:sequence>
+         <xs:attribute name="PublicationStatus">
+            <xs:simpleType>
+               <xs:restriction base="xs:NMTOKEN">
+                  <xs:enumeration value="UNDER_REVISION"/>
+                  <xs:enumeration value="RELEASED"/>
+                  <xs:enumeration value="UNDER_TEST"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:attribute>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="Responsible" type="xs:string"/>
+   <xs:element name="Responsibles">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:Responsible" minOccurs="0" maxOccurs="unbounded"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="Route">
+      <xs:complexType/>
+   </xs:element>
+   <xs:element name="SchemaType">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="Script">
+      <xs:complexType>
+         <xs:attribute name="Type" type="xs:string" use="required"/>
+         <xs:attribute name="Version" type="xs:string" use="optional"/>
+         <xs:attribute name="Grammar" type="xs:anyURI" use="optional"/>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="SimulationInformation">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:Cost"/>
+            <xs:element ref="xpdl:TimeEstimation"/>
+         </xs:sequence>
+         <xs:attribute name="Instantiation">
+            <xs:simpleType>
+               <xs:restriction base="xs:NMTOKEN">
+                  <xs:enumeration value="ONCE"/>
+                  <xs:enumeration value="MULTIPLE"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:attribute>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="Split">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:TransitionRefs" minOccurs="0"/>
+         </xs:sequence>
+         <xs:attribute name="Type">
+            <xs:simpleType>
+               <xs:restriction base="xs:NMTOKEN">
+                  <xs:enumeration value="AND"/>
+                  <xs:enumeration value="XOR"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:attribute>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="StartMode">
+      <xs:complexType>
+         <xs:choice>
+            <xs:element ref="xpdl:Automatic"/>
+            <xs:element ref="xpdl:Manual"/>
+         </xs:choice>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="SubFlow">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:ActualParameters" minOccurs="0"/>
+         </xs:sequence>
+         <xs:attribute name="Id" type="xs:string" use="required"/>
+         <xs:attribute name="Execution">
+            <xs:simpleType>
+               <xs:restriction base="xs:NMTOKEN">
+                  <xs:enumeration value="ASYNCHR"/>
+                  <xs:enumeration value="SYNCHR"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:attribute>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="TimeEstimation">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:WaitingTime" minOccurs="0"/>
+            <xs:element ref="xpdl:WorkingTime" minOccurs="0"/>
+            <xs:element ref="xpdl:Duration" minOccurs="0"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="Tool">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:ActualParameters" minOccurs="0"/>
+            <xs:element ref="xpdl:Description" minOccurs="0"/>
+            <xs:element ref="xpdl:ExtendedAttributes" minOccurs="0"/>
+         </xs:sequence>
+         <xs:attribute name="Id" type="xs:NMTOKEN" use="required"/>
+         <xs:attribute name="Type">
+            <xs:simpleType>
+               <xs:restriction base="xs:NMTOKEN">
+                  <xs:enumeration value="APPLICATION"/>
+                  <xs:enumeration value="PROCEDURE"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:attribute>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="Transition">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:Condition" minOccurs="0"/>
+            <xs:element ref="xpdl:Description" minOccurs="0"/>
+            <xs:element ref="xpdl:ExtendedAttributes" minOccurs="0"/>
+         </xs:sequence>
+         <xs:attribute name="Id" type="xs:NMTOKEN" use="required"/>
+         <xs:attribute name="From" type="xs:NMTOKEN" use="required"/>
+         <xs:attribute name="To" type="xs:NMTOKEN" use="required"/>
+         <xs:attribute name="Name" type="xs:string"/>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="TransitionRef">
+      <xs:complexType>
+         <xs:attribute name="Id" type="xs:NMTOKEN" use="required"/>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="TransitionRefs">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:TransitionRef" minOccurs="0" maxOccurs="unbounded"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="TransitionRestriction">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:Join" minOccurs="0"/>
+            <xs:element ref="xpdl:Split" minOccurs="0"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="TransitionRestrictions">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:TransitionRestriction" minOccurs="0" maxOccurs="unbounded"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="Transitions">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:Transition" minOccurs="0" maxOccurs="unbounded"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="TypeDeclaration">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:group ref="xpdl:DataTypes"/>
+            <xs:element ref="xpdl:Description" minOccurs="0"/>
+            <xs:element ref="xpdl:ExtendedAttributes" minOccurs="0"/>
+         </xs:sequence>
+         <xs:attribute name="Id" type="xs:ID" use="required"/>
+         <xs:attribute name="Name" type="xs:string"/>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="TypeDeclarations">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:TypeDeclaration" minOccurs="0" maxOccurs="unbounded"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="UnionType">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:Member" maxOccurs="unbounded"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="ValidFrom" type="xs:string"/>
+   <xs:element name="ValidTo" type="xs:string"/>
+   <xs:element name="Vendor" type="xs:string"/>
+   <xs:element name="Version" type="xs:string"/>
+   <xs:element name="WaitingTime" type="xs:string"/>
+   <xs:element name="WorkflowProcess">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:ProcessHeader"/>
+            <xs:element ref="xpdl:RedefinableHeader" minOccurs="0"/>
+            <xs:element ref="xpdl:FormalParameters" minOccurs="0"/>
+            <xs:element ref="xpdl:DataFields" minOccurs="0"/>
+            <xs:element ref="xpdl:Participants" minOccurs="0"/>
+            <xs:element ref="xpdl:Applications" minOccurs="0"/>
+            <xs:element ref="xpdl:ActivitySets" minOccurs="0"/>
+            <xs:element ref="xpdl:Activities" minOccurs="0"/>
+            <xs:element ref="xpdl:Transitions" minOccurs="0"/>
+            <xs:element ref="xpdl:ExtendedAttributes" minOccurs="0"/>
+         </xs:sequence>
+         <xs:attribute name="Id" type="xs:NMTOKEN" use="required"/>
+         <xs:attribute name="Name" type="xs:string"/>
+         <xs:attribute name="AccessLevel">
+            <xs:simpleType>
+               <xs:restriction base="xs:NMTOKEN">
+                  <xs:enumeration value="PUBLIC"/>
+                  <xs:enumeration value="PRIVATE"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:attribute>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="WorkflowProcesses">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="xpdl:WorkflowProcess" minOccurs="0" maxOccurs="unbounded"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="WorkingTime" type="xs:string"/>
+   <xs:element name="XPDLVersion" type="xs:string"/>
+   <xs:element name="Xpression">
+      <xs:complexType mixed="true">
+         <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+         </xs:choice>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>

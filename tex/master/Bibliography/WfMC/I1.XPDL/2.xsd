@@ -1,0 +1,402 @@
+<?xml version="1.0"?>
+
+<!-- 
+
+	flowdef_v2.xsd 
+
+	http://www.openwfe.org/flowdef_v2.xsd
+
+	$Id: flowdef_v2.xsd,v 1.7 2004/05/30 08:45:32 jmettraux Exp $
+
+	to be used with OpenWFE 1.0.0 at least
+
+-->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <!-- 
+
+	the root element : "workflow-definition"
+
+    -->
+
+    <xsd:element name="workflow-definition" >
+	<xsd:complexType>
+	    <xsd:sequence>
+
+		<!--
+		    description of the flow
+		-->
+		<xsd:element 
+		    name="description" 
+		    minOccurs="0" 
+		    maxOccurs="unbounded"
+		>
+		    <xsd:complexType>
+			<xsd:simpleContent>
+			    <xsd:extension base="xsd:string">
+				<xsd:attribute 
+				    name="language" 
+				    type="xsd:string" 
+				    default="default" 
+				/>
+			    </xsd:extension>
+			</xsd:simpleContent>
+		    </xsd:complexType>
+		</xsd:element>
+
+		<!--
+		    body of the flow
+		-->
+		<xsd:element 
+		    ref="sgExpression" 
+		    minOccurs="1" 
+		    maxOccurs="unbounded" 
+		/>
+
+		<!--
+		    subprocess definitions
+		-->
+		<xsd:element 
+		    name="subprocess-definition"
+		    minOccurs="0"
+		    maxOccurs="unbounded"
+		>
+		    <xsd:complexType>
+			<xsd:sequence>
+			    <xsd:element
+				ref="sgExpression"
+				minOccurs="1"
+				maxOccurs="unbounded"
+			    />
+			</xsd:sequence>
+			<xsd:attribute 
+			    name="name" type="xsd:string" use="required"
+			/>
+		    </xsd:complexType>
+		</xsd:element>
+
+		<!--
+		    filters
+		-->
+		<xsd:element 
+		    name="filter-definition" 
+		    minOccurs="0" 
+		    maxOccurs="unbounded" 
+		>
+		    <xsd:complexType>
+			<xsd:sequence>
+			    <xsd:element 
+				name="field"
+				minOccurs="0"
+				maxOccurs="unbounded"
+			    >
+				<xsd:complexType>
+	    			    <xsd:attribute 
+					name="regex" 
+					type="xsd:string" 
+					use="required"
+				    />
+	    			    <xsd:attribute 
+					name="permissions" 
+					type="xsd:string" 
+					use="required"
+				    />
+	    			</xsd:complexType>
+			    </xsd:element>
+			</xsd:sequence>
+			<xsd:attribute 
+			    name="name" type="xsd:string" use="required" 
+			/>
+			<xsd:attribute 
+			    name="type" type="xsd:string" use="required" 
+			/>
+			<xsd:attribute 
+			    name="add" type="xsd:boolean" use="required" 
+			/>
+			<xsd:attribute 
+			    name="remove" type="xsd:boolean" use="required" 
+			/>
+		    </xsd:complexType>
+		</xsd:element>
+	    </xsd:sequence>
+
+	    <!--
+		xsd:attributes of 'workflow-definition'
+	    -->
+	    <xsd:attribute name="name" type="xsd:string" />
+	    <xsd:attribute name="revision" type="xsd:string" />
+	</xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="sgExpression" />
+
+    <!--
+
+	EXPRESSIONS
+
+    -->
+
+    <xsd:element name="sequence" substitutionGroup="sgExpression" >
+	<xsd:complexType>
+	    <xsd:sequence>
+		<xsd:element 
+		    ref="sgExpression" 
+		    minOccurs="0" 
+		    maxOccurs="unbounded" />
+	    </xsd:sequence>
+	</xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="concurrence" substitutionGroup="sgExpression" >
+	<xsd:complexType>
+	    <xsd:sequence>
+		<xsd:element 
+		    ref="sgExpression" 
+		    minOccurs="0" 
+		    maxOccurs="unbounded" />
+	    </xsd:sequence>
+	    <xsd:attribute name="sync" type="syncExpressionType" />
+	</xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="iterator" substitutionGroup="sgExpression" >
+	<xsd:complexType>
+	    <xsd:sequence>
+		<xsd:element 
+		    ref="sgExpression" 
+		    minOccurs="0" 
+		    maxOccurs="unbounded" />
+	    </xsd:sequence>
+	    <xsd:attribute name="on-value" type="xsd:string" />
+	    <xsd:attribute name="on-field-value" type="xsd:string" />
+	    <xsd:attribute name="on-variable-value" type="xsd:string" />
+	    <xsd:attribute name="to-field" type="xsd:string" />
+	    <xsd:attribute name="to-variable" type="xsd:string" />
+	    <xsd:attribute name="valueSeparator" type="xsd:string" default=", *"/>
+	</xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="concurrent-iterator" substitutionGroup="sgExpression" >
+	<xsd:complexType>
+	    <xsd:sequence>
+		<xsd:element 
+		    ref="sgExpression" 
+		    minOccurs="0" 
+		    maxOccurs="unbounded" />
+	    </xsd:sequence>
+	    <xsd:attribute name="on-value" type="xsd:string" />
+	    <xsd:attribute name="on-field-value" type="xsd:string" />
+	    <xsd:attribute name="on-variable-value" type="xsd:string" />
+	    <xsd:attribute name="to-field" type="xsd:string" />
+	    <xsd:attribute name="to-variable" type="xsd:string" />
+	    <xsd:attribute name="valueSeparator" type="xsd:string" default=", *"/>
+	    <!-- also a sync for the concurrent-iterator -->
+	    <xsd:attribute name="sync" type="syncExpressionType" />
+	</xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="participant" substitutionGroup="sgExpression" >
+	<xsd:complexType>
+	    <xsd:attribute name="ref" type="xsd:string" use="required" />
+	    <xsd:attribute name="wfdUrl" type="xsd:anyURI" />
+	    <xsd:attribute name="waitForResult" type="xsd:string" />
+	    <xsd:attribute name="filter" type="xsd:string" />
+	    <xsd:attribute name="timeout" type="xsd:string" />
+	</xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="dyna-participant" substitutionGroup="sgExpression" >
+	<xsd:complexType>
+	    <!-- as of participant -->
+	    <xsd:attribute name="wfdUrl" type="xsd:anyURI" />
+	    <xsd:attribute name="waitForResult" type="xsd:string" />
+	    <xsd:attribute name="filter" type="xsd:string" />
+	    <xsd:attribute name="timeout" type="xsd:string" />
+	    <!-- dyna stuff -->
+	    <xsd:attribute name="field-ref" type="xsd:string" />
+	    <xsd:attribute name="variable-ref" type="xsd:string" />
+	    <xsd:attribute name="default-ref" type="xsd:string" />
+	</xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="set" substitutionGroup="sgExpression" >
+	<xsd:complexType>
+	    <xsd:attribute name="field" type="xsd:string" />
+	    <xsd:attribute name="variable" type="xsd:string" />
+	    <xsd:attribute name="value" type="xsd:string" />
+	    <xsd:attribute name="field-value" type="xsd:string" />
+	    <xsd:attribute name="variable-value" type="xsd:string" />
+	    <xsd:attribute name="override" type="xsd:boolean" default="true" />
+	    <xsd:attribute name="type" type="xsd:string" />
+	</xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="unset" substitutionGroup="sgExpression" >
+	<xsd:complexType>
+	    <xsd:attribute name="field-value" type="xsd:string" />
+	    <xsd:attribute name="variable-value" type="xsd:string" />
+	</xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="save" substitutionGroup="sgExpression" >
+	<xsd:complexType>
+	    <xsd:attribute name="to-variable" type="xsd:string" />
+	</xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="restore" substitutionGroup="sgExpression" >
+	<xsd:complexType>
+	    <xsd:attribute name="from-variable" type="xsd:string" />
+	    <xsd:attribute name="merge-lead" type="xsd:string" />
+	</xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="inc" substitutionGroup="sgExpression" >
+	<xsd:complexType>
+	    <xsd:attribute name="field" type="xsd:string" />
+	    <xsd:attribute name="variable" type="xsd:string" />
+	    <xsd:attribute name="value" type="xsd:string" />
+	    <xsd:attribute name="field-value" type="xsd:string" />
+	    <xsd:attribute name="variable-value" type="xsd:string" />
+	</xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="subprocess" substitutionGroup="sgExpression" >
+	<xsd:complexType>
+	    <xsd:attribute name="ref" type="xsd:string" />
+	    <xsd:attribute name="field-ref" type="xsd:string" />
+	    <xsd:attribute name="variable-ref" type="xsd:string" />
+	    <xsd:attribute name="forget" type="xsd:string" />
+	</xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="if" substitutionGroup="sgExpression" >
+	<xsd:complexType>
+	    <xsd:sequence>
+		<!-- the conditional -->
+		<xsd:element 
+		    ref="sgConditional"
+		/>
+		<!-- 'then' and perhaps 'else' -->
+		<xsd:element 
+		    ref="sgExpression" 
+		    minOccurs="1" 
+		    maxOccurs="2" />
+	    </xsd:sequence>
+	</xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="when" substitutionGroup="sgExpression" >
+	<xsd:complexType>
+	    <xsd:sequence>
+		<!-- the conditional -->
+		<xsd:element 
+		    ref="sgConditional"
+		/>
+		<!-- 'then' and no 'else' -->
+		<xsd:element 
+		    ref="sgExpression" 
+		    minOccurs="1" 
+		    maxOccurs="1" />
+	    </xsd:sequence>
+	</xsd:complexType>
+    </xsd:element>
+
+    <!--
+	conditionals
+    -->
+
+    <xsd:element name="sgConditional" />
+
+    <xsd:element name="not" substitutionGroup="sgConditional">
+	<xsd:complexType>
+	    <xsd:sequence>
+		<xsd:element ref="sgConditional" />
+	    </xsd:sequence>
+	</xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="and" substitutionGroup="sgConditional">
+	<xsd:complexType>
+	    <xsd:sequence>
+		<xsd:element 
+		    ref="sgConditional" 
+		    minOccurs="1"
+		    maxOccurs="unbounded"
+		/>
+	    </xsd:sequence>
+	</xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="or" substitutionGroup="sgConditional">
+	<xsd:complexType>
+	    <xsd:sequence>
+		<xsd:element 
+		    ref="sgConditional" 
+		    minOccurs="1"
+		    maxOccurs="unbounded"
+		/>
+	    </xsd:sequence>
+	</xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="equals" substitutionGroup="sgConditional" >
+	<xsd:complexType>
+	    <xsd:attribute name="value" type="xsd:string" />
+	    <xsd:attribute name="field-value" type="xsd:string" />
+	    <xsd:attribute name="variable-value" type="xsd:string" />
+	    <xsd:attribute name="other-value" type="xsd:string" />
+	    <xsd:attribute name="other-field-value" type="xsd:string" />
+	    <xsd:attribute name="other-variable-value" type="xsd:string" />
+	</xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="greater-than" substitutionGroup="sgConditional" >
+	<xsd:complexType>
+	    <xsd:attribute name="value" type="xsd:string" />
+	    <xsd:attribute name="field-value" type="xsd:string" />
+	    <xsd:attribute name="variable-value" type="xsd:string" />
+	    <xsd:attribute name="other-value" type="xsd:string" />
+	    <xsd:attribute name="other-field-value" type="xsd:string" />
+	    <xsd:attribute name="other-variable-value" type="xsd:string" />
+	    <xsd:attribute name="equals" type="xsd:string" />
+	</xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="lesser-than" substitutionGroup="sgConditional" >
+	<xsd:complexType>
+	    <xsd:attribute name="value" type="xsd:string" />
+	    <xsd:attribute name="field-value" type="xsd:string" />
+	    <xsd:attribute name="variable-value" type="xsd:string" />
+	    <xsd:attribute name="other-value" type="xsd:string" />
+	    <xsd:attribute name="other-field-value" type="xsd:string" />
+	    <xsd:attribute name="other-variable-value" type="xsd:string" />
+	    <xsd:attribute name="equals" type="xsd:string" />
+	</xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="undefined" substitutionGroup="sgConditional" >
+	<xsd:complexType>
+	    <xsd:attribute name="value" type="xsd:string" />
+	    <xsd:attribute name="field-value" type="xsd:string" />
+	    <xsd:attribute name="variable-value" type="xsd:string" />
+	</xsd:complexType>
+    </xsd:element>
+
+    <!--
+	sync expressions
+    -->
+
+    <xsd:simpleType name="syncExpressionType">
+	<xsd:restriction base="xsd:string">
+	    <xsd:enumeration value="first-wins" />
+	    <xsd:enumeration value="last-wins" />
+	    <xsd:enumeration value="highest-wins" />
+	    <xsd:enumeration value="first-merge" />
+	    <xsd:enumeration value="last-merge" />
+	    <xsd:enumeration value="deferred-choice" />
+	</xsd:restriction>
+    </xsd:simpleType>
+
+</xsd:schema>

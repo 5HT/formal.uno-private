@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+
+<!--
+    $Id: ipr_flow__1.0.xml,v 1.1 2004/05/30 19:17:49 jmettraux Exp $
+-->
+
+<workflow-definition 
+    name="ipr_flow" 
+    revision="1.0"
+>
+
+    <description>
+Interleaved Parallel Routing (pattern #17) flow test
+    </description>
+
+    <concurrence>
+    
+	<when>
+	    <undefined variable-value="/mutex" />
+	    <!-- then -->
+	    <sequence>
+		<set variable="/mutex" value="set" />
+		<participant ref="role-alpha" />
+		<unset variable="/mutex" />
+	    </sequence>
+	</when>
+
+	<when>
+	    <undefined variable-value="/mutex" />
+	    <!-- then -->
+	    <sequence>
+		<set variable="/mutex" value="set" />
+		<participant ref="role-bravo" />
+		<unset variable="/mutex" />
+	    </sequence>
+	</when>
+
+    </concurrence>
+
+</workflow-definition>

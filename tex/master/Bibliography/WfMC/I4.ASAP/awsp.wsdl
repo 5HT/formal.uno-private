@@ -1,0 +1,373 @@
+<?xml version="1.0"?>
+<wsd:definitions name="AWSP" 
+                 targetNamespace="http://www.awsp.info/spec/1.0/awsp.wsdl"
+                 xmlns:awsp="http://www.awsp.info/spec/1.0/awsp.wsdl"
+                 xmlns:aws="http://www.awsp.info/spec/1.0/awsp.xsd"
+                 xmlns:wsd="http://schemas.xmlsoap.org/wsdl/"
+                 xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                 xmlns:xsd="http://www.w3.org/2000/10/XMLSchema">
+
+<import namespace="aws" location="http://www.awsp.info/spec/1.0/awsp.xsd"/>
+
+<wsd:documentation>
+
+  Asynchronous Web Services Protocol
+
+  DRAFT 2002.02.18
+
+  Keith Swenson
+  MS2 Inc.
+  kswenson@ms2.com
+
+  Jeffrey Ricker 
+  Trans-enterprise Integration Corp.
+  ricker@trans-enterprise.com
+ 
+  All rights reserved. No part of this publication may be reproduced, stored in a retrieval system, or transmitted in any form or by any means, electronic, mechanical, photocopying, recording or otherwise, without the prior written permission of the authors except that reproduction, storage or transmission without permission is permitted if all copies of the publication (or portions thereof) produced thereby contain a notice that the authors are the owners of the copyright therein.
+  
+  This document represents a proposal for a protocol standard.  This version has not been approved for adoption.  Future version may change substantially from this version.
+
+  The purpose of this document is to show the AWSP defined in the Web Services Description Language (WSDL)[http://www.w3.org/TR/wsdl/]. This document is for reference only. Programmers should import this document and use the AWSP binding extension to WSDL to specify actual services.
+
+</wsd:documentation>
+
+<wsd:types>
+  <wsd:documentation> All types located in the awsp.xsd file </wsd:documentation>
+</wsd:types>
+
+<!-- Messages =========== -->
+
+<wsd:message name="completedRequest"> 
+  <part name="head" element="Request"/>
+  <part name="body" element="Completed.Request"/>
+</wsd:message>
+
+<wsd:message name="completedResponse"> 
+  <part name="head" element="Response"/>
+  <part name="body" element="Completed.Response"/>
+</wsd:message>
+
+<wsd:message name="createInstanceRequest"> 
+  <part name="head" element="Request"/>
+  <part name="body" element="CreateInstance.Request"/>
+</wsd:message>
+
+<wsd:message name="createInstanceResponse"> 
+  <part name="head" element="Response"/>
+  <part name="body" element="CreateInstance.Response"/>
+</wsd:message>
+
+<wsd:message name="getPropertiesRequest"> 
+  <part name="head" element="Request"/>
+  <part name="body" element="GetProperties.Request"/>
+</wsd:message>
+
+<wsd:message name="getPropertiesResponse"> 
+  <part name="head" element="Response"/>
+  <part name="body" element="GetProperties.Response"/>
+</wsd:message>
+
+<wsd:message name="listInstancesRequest"> 
+  <part name="head" element="Request"/>
+  <part name="body" element="ListInstances.Request"/>
+</wsd:message>
+
+<wsd:message name="listInstancesResponse"> 
+  <part name="head" element="Response"/>
+  <part name="body" element="ListInstances.Response"/>
+</wsd:message>
+
+<wsd:message name="notifyRequest"> 
+  <part name="head" element="Request"/>
+  <part name="body" element="Notify.Request"/>
+</wsd:message>
+
+<wsd:message name="notifyResponse"> 
+  <part name="head" element="Response"/>
+  <part name="body" element="Notify.Response"/>
+</wsd:message>
+
+<wsd:message name="terminateRequest"> 
+  <part name="head" element="Request"/>
+  <part name="body" element="Terminate.Request"/>
+</wsd:message>
+
+<wsd:message name="terminateResponse"> 
+  <part name="head" element="Response"/>
+  <part name="body" element="Terminate.Response"/>
+</wsd:message>
+
+<wsd:message name="terminatedRequest"> 
+  <part name="head" element="Request"/>
+  <part name="body" element="Terminated.Request"/>
+</wsd:message>
+
+<wsd:message name="terminatedResponse"> 
+  <part name="head" element="Response"/>
+  <part name="body" element="Terminated.Response"/>
+</wsd:message>
+
+<wsd:message name="setPropertiesRequest"> 
+  <part name="head" element="Request"/>
+  <part name="body" element="SetProperties.Request"/>
+</wsd:message>
+
+<wsd:message name="setPropertiesResponse"> 
+  <part name="head" element="Response"/>
+  <part name="body" element="SetProperties.Response"/>
+</wsd:message>
+
+<wsd:message name="subscribeRequest"> 
+  <part name="head" element="Request"/>
+  <part name="body" element="Subscribe.Request"/>
+</wsd:message>
+
+<wsd:message name="subscribeResponse"> 
+  <part name="head" element="Response"/>
+  <part name="body" element="Subscribe.Response"/>
+</wsd:message>
+
+<wsd:message name="unsubscribeRequest"> 
+  <part name="head" element="Request"/>
+  <part name="body" element="Unsubscribe.Request"/>
+</wsd:message>
+
+<wsd:message name="unsubscribeResponse"> 
+  <part name="head" element="Response"/>
+  <part name="body" element="Unsubscribe.Response"/>
+</wsd:message>
+
+
+<!-- Port types ============== -->
+
+<wsd:portType name="InstancePortType">
+  <wsd:operation name="GetProperties">
+    <wsd:input message="getPropertiesRequest"/>
+    <wsd:output message="getPropertiesResponse"/>
+  </wsd:operation>
+  <wsd:operation name="SetProperties">
+    <wsd:input message="setPropertiesRequest"/>
+    <wsd:output message="setPropertiesResponse"/>
+  </wsd:operation>
+  <wsd:operation name="Terminate">
+    <wsd:input message="terminateRequest"/>
+    <wsd:output message="terminateResponse"/>
+  </wsd:operation> 
+  <wsd:operation name="Subscribe">
+    <wsd:input message="subscribeRequest"/>
+    <wsd:output message="subscribeResponse"/>
+  </wsd:operation>
+  <wsd:operation name="Unsubscribe">
+    <wsd:input message="unsubscribeRequest"/>
+    <wsd:output message="unsubscribeResponse"/>
+  </wsd:operation>
+</wsd:portType>
+
+<wsd:portType name="FactoryPortType">
+  <wsd:operation name="GetProperties">
+    <wsd:input message="getPropertiesRequest"/>
+    <wsd:output message="getPropertiesResponse"/>
+  </wsd:operation>
+  <wsd:operation name="CreateInstance">
+    <wsd:input message="createInstanceRequest"/>
+    <wsd:output message="createInstanceResponse"/>
+  </wsd:operation>
+  <wsd:operation name="ListInstances">
+    <wsd:input message="listInstancesRequest"/>
+    <wsd:output message="listInstancesResponse"/>
+  </wsd:operation>
+</wsd:portType>
+
+<wsd:portType name="ObserverPortType">
+  <wsd:operation name="GetProperties">
+    <wsd:input message="getPropertiesRequest"/>
+    <wsd:output message="getPropertiesResponse"/>
+  </wsd:operation>
+  <wsd:operation name="Completed">
+    <wsd:input message="completedRequest"/>
+    <wsd:output message="completedResponse"/>
+  </wsd:operation>
+  <wsd:operation name="Terminated">
+    <wsd:input message="terminatedRequest"/>
+    <wsd:output message="terminatedResponse"/>
+  </wsd:operation> 
+  <wsd:operation name="Notify">
+    <wsd:input message="notifyRequest"/>
+    <wsd:output message="notifyResponse"/>
+  </wsd:operation>
+</wsd:portType>
+
+<wsd:portType name="ActivityPortType">
+  <wsd:operation name="GetProperties">
+    <wsd:input message="getPropertiesRequest"/>
+    <wsd:output message="getPropertiesResponse"/>
+  </wsd:operation>
+</wsd:portType>
+
+<!-- Bindings ============== -->
+
+<wsd:binding name="AwspInstanceBinding">
+   <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+   <wsd:operation name="GetProperties">
+      <soap:operation/>
+      <wsd:input message="getPropertiesRequest">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="getPropertiesRequest" part="head" use="literal"/>
+      </wsd:input>
+      <wsd:output message="getPropertiesResponse">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="getPropertiesResponse" part="head" use="literal"/>
+      </wsd:output>
+   </wsd:operation>
+   <wsd:operation name="SetProperties">
+      <soap:operation/>
+      <wsd:input message="setPropertiesRequest">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="setPropertiesRequest" part="head" use="literal"/>
+      </wsd:input>
+      <wsd:output message="setPropertiesResponse">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="setPropertiesResponse" part="head" use="literal"/>
+      </wsd:output>
+   </wsd:operation>
+   <wsd:operation name="Terminate">
+      <soap:operation/>
+      <wsd:input message="terminateRequest">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="terminateRequest" part="head" use="literal"/>
+      </wsd:input>
+      <wsd:output message="terminateResponse">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="terminateResponse" part="head" use="literal"/>
+      </wsd:output>
+   </wsd:operation> 
+   <wsd:operation name="Subscribe">
+      <soap:operation/>
+      <wsd:input message="subscribeRequest">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="subscribeRequest" part="head" use="literal"/>
+      </wsd:input>
+      <wsd:output message="subscribeResponse">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="subscribeResponse" part="head" use="literal"/>
+      </wsd:output>
+   </wsd:operation>
+   <wsd:operation name="Unsubscribe">
+      <soap:operation/>
+      <wsd:input message="unsubscribeRequest">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="unsubscribeRequest" part="head" use="literal"/>
+      </wsd:input>
+      <wsd:output message="unsubscribeResponse">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="unsubscribeResponse" part="head" use="literal"/>
+      </wsd:output>
+   </wsd:operation>
+</wsd:binding>
+
+<wsd:binding name="AwspFactoryBinding">
+   <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+   <wsd:operation name="GetProperties">
+      <soap:operation/>
+      <wsd:input message="getPropertiesRequest">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="getPropertiesRequest" part="head" use="literal"/>
+      </wsd:input>
+      <wsd:output message="getPropertiesResponse">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="getPropertiesResponse" part="head" use="literal"/>
+      </wsd:output>
+   </wsd:operation>
+   <wsd:operation name="CreateInstance">
+      <soap:operation/>
+      <wsd:input message="createInstanceRequest">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="createInstanceRequest" part="head" use="literal"/>
+      </wsd:input>
+      <wsd:output message="createInstanceResponse">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="createInstanceResponse" part="head" use="literal"/>
+      </wsd:output>
+   </wsd:operation>
+   <wsd:operation name="ListInstances">
+      <soap:operation/>
+      <wsd:input message="listInstancesRequest">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="listInstancesRequest" part="head" use="literal"/>
+      </wsd:input>
+      <wsd:output message="listInstancesResponse">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="listInstancesResponse" part="head" use="literal"/>
+      </wsd:output>
+   </wsd:operation>
+</wsd:binding>
+
+<wsd:binding name="AwspObserverBinding">
+   <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+   <wsd:operation name="GetProperties">
+      <soap:operation/>
+      <wsd:input message="getPropertiesRequest">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="getPropertiesRequest" part="head" use="literal"/>
+      </wsd:input>
+      <wsd:output message="getPropertiesResponse">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="getPropertiesResponse" part="head" use="literal"/>
+      </wsd:output>
+   </wsd:operation>
+   <wsd:operation name="Completed">
+      <soap:operation/>
+      <wsd:input message="completedRequest">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="completedRequest" part="head" use="literal"/>
+      </wsd:input>
+      <wsd:output message="completedResponse">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="completedResponse" part="head" use="literal"/>
+      </wsd:output>
+   </wsd:operation>
+   <wsd:operation name="Terminated">
+      <soap:operation/>
+      <wsd:input message="terminatedRequest">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="terminatedRequest" part="head" use="literal"/>
+      </wsd:input>
+      <wsd:output message="terminatedResponse">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="terminatedResponse" part="head" use="literal"/>
+      </wsd:output>
+   </wsd:operation>
+   <wsd:operation name="Notify">
+      <soap:operation/>
+      <wsd:input message="notifyRequest">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="notifyRequest" part="head" use="literal"/>
+      </wsd:input>
+      <wsd:output message="notifyResponse">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="notifyResponse" part="head" use="literal"/>
+      </wsd:output>
+   </wsd:operation>
+</wsd:binding>
+
+<wsd:binding name="AwspActivityBinding">
+   <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+   <wsd:operation name="GetProperties">
+      <soap:operation/>
+      <wsd:input message="getPropertiesRequest">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="getPropertiesRequest" part="head" use="literal"/>
+      </wsd:input>
+      <wsd:output message="getPropertiesResponse">
+         <soap:body parts="body" use="literal"/>
+         <soap:header message="getPropertiesResponse" part="head" use="literal"/>
+      </wsd:output>
+   </wsd:operation>
+</wsd:binding>
+
+<!-- Since AWSP is a protocol, we cannot define actual services with URIs in this document. 
+     Import this document into your service description file.
+     -->
+  
+</wsd:definitions>
+
