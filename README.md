@@ -17,7 +17,7 @@ Monography
 Compilation: https://formal.uno/monography.pdf
 
 ```
-$ cp *.ttf ./local/share/fonts
+$ cp *.ttf ~/.local/share/fonts
 $ sudo apt install texlive-full
 $ sudo fc-cache -f
 $ fc-match Geometria
